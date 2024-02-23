@@ -1,0 +1,35 @@
+oKAY this is a new file .NEW file inside Houston-directory.
+Sample recording app:
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./recordings:/app/recordings
+
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: recording_db
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
+
